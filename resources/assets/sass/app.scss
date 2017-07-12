@@ -11,6 +11,7 @@ body {
 section {
   overflow: auto;
 }
+
 textarea {
   resize:vertical;
 }
@@ -21,15 +22,17 @@ textarea {
 
 /* typography */
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6 {
   line-height: 1;
-}
+
+
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align : center;
 }
+
 h2 {
   font-size: 1.2em;
   letter-spacing: -1px;
@@ -38,6 +41,7 @@ h2 {
   font-weight: normal;
   color: #777;
 }
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -45,14 +49,14 @@ p {
 
 /* header */
 
-.navbar-inverse{
+.navbar-inverse {
   background-color: $navbar-color;
 }
 
 #logo {
   float: left;
-  margin-right: 1.7;
-  font-size: 1.7;
+  margin-right: 10px;
+  font-size: 1.7em;
   color: #fff;
   text-decoration: none;
   letter-spacing: -1px;
@@ -81,6 +85,7 @@ footer {
   small {
     float: left;
   }
+
   ul {
     float: right;
     list-style: none;
@@ -100,7 +105,7 @@ footer {
     font-size: 13px;
     font-weight: bold;
   }
-
+}
 /* sidebar */
 aside {
   section {
@@ -136,9 +141,9 @@ section.user_info {
 
 .gravatar {
   float: left;
-  margin-right: 5px;
+  margin-right: 10px;
   max-width: 50px;
-  border-radius: 60%;
+  border-radius: 50%;
 }
 
 
