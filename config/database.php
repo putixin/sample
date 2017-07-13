@@ -73,7 +73,7 @@ return [
             // 'database' => env('DB_DATABASE', 'forge'),
             // 'username' => env('DB_USERNAME', 'forge'),
             // 'password' => env('DB_PASSWORD', ''),
-            'host'     => $db_config['host],
+            'host'     => $db_config['host'],
             'database' => $db_config['database'],
             'username' => $db_config['username'],
             'password' => $db_config['password'],
