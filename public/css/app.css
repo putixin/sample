@@ -5771,8 +5771,8 @@ p {
 
 #logo {
   float: left;
-  margin-right: 1.7;
-  font-size: 1.7;
+  margin-right: 10px;
+  font-size: 1.7em;
   color: #fff;
   text-decoration: none;
   letter-spacing: -1px;
@@ -5781,14 +5781,17 @@ p {
   #logo:hover {
     color: #fff; }
 
+#logout {
+  cursor: default; }
+  #logout:hover {
+    background-color: transparent; }
+
 /* footer */
 footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
-  color: #777;
-  /* sidebar */
-  /* forms */ }
+  color: #777; }
   footer a {
     color: #555; }
   footer a:hover {
@@ -5807,40 +5810,69 @@ footer {
   footer .slogon {
     font-size: 13px;
     font-weight: bold; }
-  footer aside section {
+
+/* sidebar */
+aside section {
+  padding: 10px 0;
+  margin-top: 20px; }
+  aside section:first-child {
+    border: 0;
+    padding-top: 0; }
+  aside section span {
+    display: block;
+    margin-bottom: 3px;
+    line-height: 1; }
+
+section.user_info {
+  padding-bottom: 10px;
+  margin-top: 20px;
+  text-align: center; }
+  section.user_info .gravatar {
+    float: none;
+    max-width: 70px; }
+  section.user_info h1 {
+    font-size: 1.4em;
+    letter-spacing: -1px;
+    margin-bottom: 3px;
+    margin-top: 15px; }
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+  max-width: 50px;
+  border-radius: 50%; }
+
+/* forms */
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px; }
+
+.checkbox input[type='checkbox'] {
+  width: auto; }
+
+input {
+  height: auto !important; }
+
+.pannel {
+  margin-top: 50px; }
+
+/* Users edit */
+.gravatar_edit {
+  margin: 15px auto;
+  text-align: center; }
+  .gravatar_edit .gravatar {
+    float: none;
+    max-width: 100px; }
+
+/* Users index */
+.users {
+  list-style: none;
+  margin: 0;
+  padding-left: 0; }
+  .users li {
+    overflow: auto;
     padding: 10px 0;
-    margin-top: 20px; }
-    footer aside section:first-child {
-      border: 0;
-      padding-top: 0; }
-    footer aside section span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1; }
-  footer section.user_info {
-    padding-bottom: 10px;
-    margin-top: 20px;
-    text-align: center; }
-    footer section.user_info .gravatar {
-      float: none;
-      max-width: 70px; }
-    footer section.user_info h1 {
-      font-size: 1.4em;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 15px; }
-  footer .gravatar {
-    float: left;
-    margin-right: 5px;
-    max-width: 50px;
-    border-radius: 50%; }
-  footer input, footer textarea, footer select, footer .uneditable-input {
-    border: 1px solid #bbb;
-    width: 100%;
-    margin-bottom: 15px; }
-  footer input {
-    height: auto !important; }
-  footer .pannel {
-    margin-top: 50px; }
+    border-bottom: 1px solid #eeeeee; }
 
 /*# sourceMappingURL=app.css.map */

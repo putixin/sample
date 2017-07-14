@@ -13,6 +13,18 @@ use Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'only' => ['edit','update']
+        ]);
+
+        //只让未登录用户访问注册页面
+        $this->middleware('guest',[
+            'only' => ['create']
+        ]);
+    }
+
     public function create()
     {
         return view('users.create');
@@ -23,6 +35,7 @@ class UsersController extends Controller
         return view('users.show',compact('user'));
     }
 
+    //将用户添加入库
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -40,5 +53,40 @@ class UsersController extends Controller
         Auth::login($user);
         session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show',[$user]);
+    }
+
+    //编辑用户
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('update',$user); //authorize 方法接收两个参数，第一个为授权策略的名称，第二个为进行授权验证的数据。
+        return view('users.edit',compact('user'));
+    }
+
+    public function update($id, Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|max:50',
+            'password' => 'confirmed|min:6',//将required规则去掉
+        ]);
+
+        $user = User::findOrFail($id);
+        $this->authorize('update',$user);
+
+        $data = [];
+        $data['name'] = $request->name;
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+
+        session()->flash('success', '个人资料更新成功！');
+
+        return redirect()->route('users.show',$id);
+    }
+
+    public function index(){
+        $users = User::all();
+        return redirect('users.index',compact('users'));
     }
 }
