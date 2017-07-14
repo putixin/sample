@@ -67,6 +67,13 @@ p {
   }
 }
 
+#logout {
+  cursor: default;
+  &:hover {
+    background-color: transparent;
+  }
+}
+
 /* footer */
 footer {
   margin-top: 45px;
@@ -162,5 +169,3 @@ input {
 .pannel {
   margin-top: 50px;
 }
-=======
->>>>>>> filling-layout-style
