@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth',[
-            'only' => ['edit','update']
+            'only' => ['edit','update','destory']
         ]);
 
         //只让未登录用户访问注册页面
@@ -86,7 +86,16 @@ class UsersController extends Controller
     }
 
     public function index(){
-        $users = User::all();
-        return redirect('users.index',compact('users'));
+        $users = User::paginate(5);
+        return view('users.index',compact('users'));
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('destroy',$user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }
