@@ -11,6 +11,8 @@ use App\Models\User;
 
 use Auth;
 
+use Mail;
+
 class UsersController extends Controller
 {
     public function __construct()
@@ -50,8 +52,36 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        $this->sendEmailConfirmationTo($user);
+        session()->flash('success', '验证邮件已发送到你的注册邮件上，请注意查收。');
+        return redirect('/');
+    }
+
+    // 该方法将用于发送邮件给指定用户。我们会在用户注册成功之后调用该方法来发送激活邮件
+    protected function sendEmailConfirmationTo($user)
+    {
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = '52putixin@gmail.com';
+        $name = 'Putixin';
+        $to = $user->email;
+        $subject = "感谢注册 Sample 应用！请确认你的邮箱。";
+
+        Mail::send($view, $data, function($message) use ($from, $name, $to, $subject) {
+            $message->from($from, $name)->to($to)->subject($subject);
+        });
+    }
+    //邮箱激活方法
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token', $token)->firstOrFail();
+
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save();
+
         Auth::login($user);
-        session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
+        session()->flash('success', '恭喜你，激活成功！');
         return redirect()->route('users.show',[$user]);
     }
 
