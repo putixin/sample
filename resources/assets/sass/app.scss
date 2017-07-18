@@ -20,6 +20,11 @@ textarea {
   text-align: center;
 }
 
+//给status继承alert-info的样式
+.alert-status{
+  @extend .alert-info;
+}
+
 /* typography */
 
 h1,h2,h3,h4,h5,h6 {
