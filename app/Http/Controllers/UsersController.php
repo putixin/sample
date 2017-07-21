@@ -36,7 +36,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         //将用户所有微博取出分页
         $statuses = $user->statuses()
-                         ->orderBy('create_at','desc')
+                         ->orderBy('created_at','desc')
                          ->paginate(20);
         return view('users.show',compact('user','statuses'));
     }
