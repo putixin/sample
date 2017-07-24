@@ -10,6 +10,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Auth;
+
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
@@ -65,8 +67,11 @@ class User extends Model implements AuthenticatableContract,
     */
     public function feed()
     {
-        return $this->statuses()
-                    ->orderBy('created_at', 'desc');
+        $user_ids = Auth::user()->followings->pluck('id')->toArray();
+        array_push($user_ids, Auth::user()->id);
+        return status::whereIn('user_id', $user_ids)
+                               ->with('user')
+                               ->orderBy('created_at', 'desc');
     }
 
     public function followers()
@@ -79,7 +84,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
     }
     //关注
-    public funciton follow($user_ids)
+    public function follow($user_ids)
     {
         if(!is_array($user_ids)) {
             $user_ids = compact('user_ids');
@@ -94,6 +99,7 @@ class User extends Model implements AuthenticatableContract,
         }
         $this->followings()->detach($user_ids);
     }
+    // 判断当前登录的用户 A 是否关注了用户 B，代码实现逻辑很简单，我们只需要判断用户 B 是否包含在用户 A 的关注人列表上即可
     public function isFollowing($user_id)
     {
         return $this->followings->contains($user_id);

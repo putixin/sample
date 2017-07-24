@@ -18,7 +18,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth',[
-            'only' => ['edit','update','destory']
+            'only' => ['edit','update','destory','followings','followers']
         ]);
 
         //只让未登录用户访问注册页面
@@ -131,5 +131,22 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success', '成功删除用户！');
         return back();
+    }
+
+    //显示用户关注人列表
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followings()->paginate(20);
+        $title = '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+    //用户显示粉丝列表
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followers()->paginate(20);
+        $title = '粉丝';
+        return view('users.show_follow', compact('users','title'));
     }
 }
